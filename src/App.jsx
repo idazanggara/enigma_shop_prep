@@ -1,7 +1,31 @@
 import React from 'react'
-// import { useEffect } from 'react'
+import Home from '@/pages/Home/Home'
+import Login from './pages/Authentication/Login'
+import Register from './pages/Authentication/Register'
+
 
 class App extends React.Component {
+  render() {
+    return (
+      <>
+        <Home />
+        <Login />
+        <Register />
+      </>
+    )
+  }
+}
+
+
+
+
+
+
+
+
+
+// eslint-disable-next-line no-unused-vars
+class AppOne extends React.Component {
   // method render ini dari class React.Conponent
   render() {
     const styleH1 = {
