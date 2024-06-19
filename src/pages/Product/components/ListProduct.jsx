@@ -27,7 +27,10 @@ class ListProduct extends Component {
           <div className="row row-cols-lg-4 row-cols-1 g-4">
             <div className="col">
               {/* Product */}
-              <ItemProduct />
+              <ItemProduct
+                image="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//98/MTA-10906782/beng-beng_beng-beng-coklat-wafer-20g_full01.jpg"
+                title="Beng Beng"
+                price={3000} />
             </div>
           </div>
         </div>
