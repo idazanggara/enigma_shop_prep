@@ -49,7 +49,8 @@ export default class ItemProduct extends Component {
 }
 
 ItemProduct.propTypes = {
-  image: PropTypes.string,
-  title: PropTypes.string,
-  price: [PropTypes.number, PropTypes.string]
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  // price: [PropTypes.number, PropTypes.string]
 }
