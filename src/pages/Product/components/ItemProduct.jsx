@@ -1,7 +1,6 @@
 import { Component } from 'react'
-import { IconHeart } from '@tabler/icons-react'
+import { IconHeart, IconShoppingCart, IconHeartFilled } from '@tabler/icons-react'
 import PropTypes from "prop-types"
-
 
 export default class ItemProduct extends Component {
   // untuk props
@@ -10,19 +9,20 @@ export default class ItemProduct extends Component {
   //   console.log("🚀 ~ ItemProduct ~ constructor ~ props:", props)
   // }
   // cara lama menggunakan state di class component
-  constructor(props) {
-    super(props)
-    this.state = {
-      count: 10
-    }
-    // di comment setelah arrow
-    // this.handleDecrement = this.handleDecrement.bind(this)
-    // this.handleIncrement = this.handleIncrement.bind(this)
-  }
-  // cara baru menggunakan state di class component
-  // state = {
-  //   count: 20
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     count: 10
+  //   }
+  //   // di comment setelah arrow
+  //   // this.handleDecrement = this.handleDecrement.bind(this)
+  //   // this.handleIncrement = this.handleIncrement.bind(this)
   // }
+  // cara baru menggunakan state di class component
+  state = {
+    count: 20,
+    isSaved: false
+  }
   // cara lama untuk ngiket, antara method handleDecrement ini dengan ItemProductnya
   // constructor(props) {
   //   super(props)
@@ -57,10 +57,30 @@ export default class ItemProduct extends Component {
     })
   }
 
+  handleChangeSaved = () => {
+    console.log("🚀 ~ ItemProduct ~ this.state.isSaved:", this.state.isSaved)
+    this.setState({ isSaved: !this.state.isSaved }, () => {
+      if (this.state.isSaved) {
+        const callback = this.props.changeSavedCount
+        // this.props.changeSavedCount(1)
+        callback(1)
+      } else {
+        this.props.changeSavedCount(-1)
+      }
+    })
+    // nilai awalnya itu akan false, karena sifatnya setState async
+    // if (!this.state.isSaved) {
+    //   this.props.changeSavedCount(1)
+    // } else {
+    //   this.props.changeSavedCount(-1)
+    // }
+  };
+
+
   render() {
     const { image, title, price } = this.props // udah ada property props bawaan dari component
     // console.log("🚀 ~ ItemProduct ~ render ~ this.props:", this.props)
-    console.log("🚀 ~ ItemProduct ~ render ~ this:", this)
+    // console.log("🚀 ~ ItemProduct ~ render ~ this:", this)
     return (
       <>
         <div className="card shadow-sm h-100">
@@ -77,23 +97,31 @@ export default class ItemProduct extends Component {
           {/* .d-flex.justify-content-between.p-2>.d-flex.align-items-center.justify-content-start.column-gap-4>button.d-flex.align-items-center.column-gap-2.btn.btn-primary{Tambah Keranjang}+button.btn.btn-primary{-}+span{0}+button.btn.btn-primary{+}^button.btn.btn-link>i{IconHeart} */}
           <div className="d-flex justify-content-between p-2">
             <div className="d-flex align-items-center justify-content-start column-gap-4">
-              <button className="d-flex align-items-center column-gap-2 btn btn-primary">
-                Tambah Keranjang
-              </button>
-              <button
-                onClick={this.handleDecrement}
-                className="btn btn-primary">
-                -
-              </button>
-              <span>{this.state.count === 20 ? 'Gokil' : this.state.count}</span>
-              <button
-                onClick={this.handleIncrement}
-                className="btn btn-primary">
-                +
-              </button>
+              {this.state.count === 0 ? (
+                <button
+                  onClick={this.handleIncrement}
+                  className="d-flex align-items-center column-gap-2 btn btn-primary"
+                >
+                  <IconShoppingCart /> Tambah Keranjang
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={this.handleDecrement}
+                    className="btn btn-primary">
+                    -
+                  </button>
+                  <span>{this.state.count === 20 ? 'Gokil' : this.state.count}</span>
+                  <button
+                    onClick={this.handleIncrement}
+                    className="btn btn-primary">
+                    +
+                  </button>
+                </>
+              )}
             </div>
-            <button className="btn btn-link">
-              <i><IconHeart /></i>
+            <button onClick={this.handleChangeSaved} className="btn btn-link" >
+              <i>{this.state.isSaved ? <IconHeartFilled /> : <IconHeart />}</i>
             </button>
           </div>
         </div>
@@ -107,4 +135,5 @@ ItemProduct.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   // price: [PropTypes.number, PropTypes.string]
+  changeSavedCount: PropTypes.func.isRequired,
 }

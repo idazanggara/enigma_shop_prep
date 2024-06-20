@@ -9,10 +9,10 @@ class App extends React.Component {
   render() {
     return (
       <>
+        <Product />
         <Home />
         <Login />
         <Register />
-        <Product />
       </>
     )
   }

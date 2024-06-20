@@ -9,7 +9,6 @@ export default defineConfig({
   resolve: {
     alias: {
       // __dirname ini adalah directory project kita atau enigma-shop-react-prep
-      // eslint-disable-next-line no-undef
       '@': path.resolve(__dirname, './src'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@shared': path.resolve(__dirname, './src/shared'),
