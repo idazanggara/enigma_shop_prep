@@ -35,20 +35,20 @@ class Login extends Component {
               </div>
               <h2 className="text-center">Log In</h2>
               <div className="mb-3">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="emailLogin">Email</label>
                 <input
                   type="email"
                   name="email"
-                  id="email"
+                  id="emailLogin"
                   className="form-control rounded-0 border-0 border-bottom"
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="passwordLogin">Password</label>
                 <input
                   type="password"
                   name="password"
-                  id="password"
+                  id="passwordLogin"
                   className="form-control rounded-0 border-0 border-bottom"
                 />
               </div>

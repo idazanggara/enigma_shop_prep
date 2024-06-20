@@ -4,13 +4,63 @@ import PropTypes from "prop-types"
 
 
 export default class ItemProduct extends Component {
+  // untuk props
+  // constructor(props) {
+  //   super(props)
+  //   console.log("🚀 ~ ItemProduct ~ constructor ~ props:", props)
+  // }
+  // cara lama menggunakan state di class component
   constructor(props) {
     super(props)
-    console.log("🚀 ~ ItemProduct ~ constructor ~ props:", props)
+    this.state = {
+      count: 10
+    }
+    // di comment setelah arrow
+    // this.handleDecrement = this.handleDecrement.bind(this)
+    // this.handleIncrement = this.handleIncrement.bind(this)
   }
+  // cara baru menggunakan state di class component
+  // state = {
+  //   count: 20
+  // }
+  // cara lama untuk ngiket, antara method handleDecrement ini dengan ItemProductnya
+  // constructor(props) {
+  //   super(props)
+  //   this.handleDecrement = this.handleDecrement.bind(this)
+  //   this.handleIncrement = this.handleIncrement.bind(this)
+  // }
+  //* cara lama error karena function memiliki this
+  // handleDecrement() {
+  //   console.log("🚀 ~ ItemProduct ~ handleDecrement ~ this:", this)
+  //   //! validasi jika 0 stop decrement?
+  //   // guard close, cari yg negative dulu
+  //   if (this.state.count === 0) return
+  //   this.setState({
+  //     count: this.state.count - 1
+  //   })
+  // }
+  // handleIncrement() {
+  //   this.setState({
+  //     count: this.state.count + 1
+  //   })
+  // }
+  //* ubah jadi arrow
+  handleDecrement = () => {
+    if (this.state.count === 0) return
+    this.setState({
+      count: this.state.count - 1
+    })
+  }
+  handleIncrement = () => {
+    this.setState({
+      count: this.state.count + 1
+    })
+  }
+
   render() {
     const { image, title, price } = this.props // udah ada property props bawaan dari component
-    console.log("🚀 ~ ItemProduct ~ render ~ this.props:", this.props)
+    // console.log("🚀 ~ ItemProduct ~ render ~ this.props:", this.props)
+    console.log("🚀 ~ ItemProduct ~ render ~ this:", this)
     return (
       <>
         <div className="card shadow-sm h-100">
@@ -30,11 +80,15 @@ export default class ItemProduct extends Component {
               <button className="d-flex align-items-center column-gap-2 btn btn-primary">
                 Tambah Keranjang
               </button>
-              <button className="btn btn-primary">
+              <button
+                onClick={this.handleDecrement}
+                className="btn btn-primary">
                 -
               </button>
-              <span>0</span>
-              <button className="btn btn-primary">
+              <span>{this.state.count === 20 ? 'Gokil' : this.state.count}</span>
+              <button
+                onClick={this.handleIncrement}
+                className="btn btn-primary">
                 +
               </button>
             </div>

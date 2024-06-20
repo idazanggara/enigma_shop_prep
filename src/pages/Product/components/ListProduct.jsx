@@ -32,6 +32,12 @@ class ListProduct extends Component {
                 title="Beng Beng"
                 price={3000} />
             </div>
+            <div className="col">
+              <ItemProduct
+                image="https://wingscorp.com/wp-content/uploads/2021/11/IMG-20211201-WA0003.jpg"
+                title="Ale Ale"
+                price={2000} />
+            </div>
           </div>
         </div>
       </section>

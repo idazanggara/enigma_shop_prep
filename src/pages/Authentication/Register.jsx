@@ -20,13 +20,13 @@ const Register = () => {
                         </div>
                         <h2 className="text-center">Register</h2>
                         <div className="mb-3">
-                            <label htmlFor="email">Email</label>
-                            <input type="email" name="email" id="email"
+                            <label htmlFor="emailRegister">Email</label>
+                            <input type="email" name="email" id="emailRegister"
                                 className="form-control rounded-0 border-0 border-bottom" />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="password">Password</label>
-                            <input type="password" name="password" id="password"
+                            <label htmlFor="passwordRegister">Password</label>
+                            <input type="password" name="password" id="passwordRegister"
                                 className="form-control rounded-0 border-0 border-bottom" />
                         </div>
                         <div className="mb-3 text-end">
