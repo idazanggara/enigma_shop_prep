@@ -76,8 +76,30 @@ export default class ItemProduct extends Component {
     // }
   };
 
+  // react lifecycle
+  constructor(props) {
+    super(props)
+    console.log("Called from Constructor")
+  }
+
+  // ini sering digunakan pada saat fetch data menggunakan API
+  componentDidMount() {
+    console.log("Called from componentDidMount")
+  }
+
+  // ini ketika ada perubahan state
+  componentDidUpdate() {
+    console.log("Called from componentDidUpdate")
+  }
+
+  componentWillUnmount() {
+    console.log("Called from componentWillUnmount")
+  }
+
 
   render() {
+    console.log("Called from render")
+
     const { image, title, price } = this.props // udah ada property props bawaan dari component
     // console.log("🚀 ~ ItemProduct ~ render ~ this.props:", this.props)
     // console.log("🚀 ~ ItemProduct ~ render ~ this:", this)
