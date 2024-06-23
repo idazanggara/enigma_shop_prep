@@ -10,6 +10,6 @@ import AppTest from './AppTest.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
-    {/* <AppTest /> */}
+    <AppTest />
   </React.StrictMode>,
 )

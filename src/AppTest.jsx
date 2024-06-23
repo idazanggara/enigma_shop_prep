@@ -1,5 +1,7 @@
 import React from 'react'
+// eslint-disable-next-line no-unused-vars
 import Product from './pages/Product/Product'
+import UjiCobaCB from './pages/UjiCobaCB/UjiCobaCB'
 
 
 class AppTest extends React.Component {
@@ -28,7 +30,8 @@ class AppTest extends React.Component {
     console.log("Called from render")
     return (
       <>
-        <Product />
+        {/* <Product /> */}
+        <UjiCobaCB />
       </>
     )
   }
