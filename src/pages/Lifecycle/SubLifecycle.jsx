@@ -4,6 +4,7 @@ class SubLifecycle extends Component {
   // componentWillUnmount dipanggil pada saat component hilang dari DOM
   componentWillUnmount() {
     console.log("Called from componentWillUnmount")
+    // eslint-disable-next-line react/prop-types
     this.props.changeValue('Ngoding')
 
   }
