@@ -14,3 +14,21 @@ body {
 }
 
 @import "node_modules/bootstrap/scss/bootstrap";
+
+
+/* LoadingSpinner.css */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

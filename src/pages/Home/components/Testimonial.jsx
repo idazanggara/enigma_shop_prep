@@ -1,6 +1,6 @@
 import { Component } from "react"
 
-export default class TheTestimonial extends Component {
+export default class Testimonial extends Component {
   render() {
     return (
       <section className="py-4" id="testimoni">
