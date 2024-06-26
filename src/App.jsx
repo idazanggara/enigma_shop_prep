@@ -5,14 +5,39 @@ import Login from './pages/Authentication/Login'
 import Register from './pages/Authentication/Register'
 import Product from './pages/Product/Product'
 import Lifecycle from './pages/Lifecycle/Lifecycle'
+import Header from './shared/components/Header/Header'
+import Dashboard from './pages/Dashboard/Dashboard'
+import Sidebar from '@/shared/components/Sidebar/Sidebar'
+import Todo from './pages/Todo/Todo'
 
 
 class App extends React.Component {
+  state = {
+    page: <Todo />,
+  }
+
+  navigateTo = (page) => {
+    this.setState({ page })
+  }
   render() {
     return (
       <>
-        <Lifecycle />
-        {/* <Product />
+        <div className="d-flex">
+          <Sidebar navigateTo={this.navigateTo} />
+          <main className="w-100 flex-grow-1">
+            <Header />
+            {this.state.page}
+          </main>
+        </div>
+
+        {/* <button onClick={() => this.setState({ page: <Home /> })}>Show Home</button>
+        <button onClick={() => this.setState({ page: <Lifecycle /> })}>Show Lifecycle</button>
+        <button onClick={() => this.setState({ page: <Product /> })}>Show Product</button>
+        <button onClick={() => this.setState({ page: <Login /> })}>Show Login</button>
+        <button onClick={() => this.setState({ page: <Register /> })}>Show Register</button>
+        {this.state.page} */}
+        {/* <Lifecycle />
+        <Product />
         <Home />
         <Login />
         <Register /> */}
