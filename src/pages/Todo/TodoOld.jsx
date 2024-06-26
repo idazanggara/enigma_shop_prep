@@ -13,7 +13,7 @@ const obj = {
 console.log(obj["id"])
 console.log(obj["description data"])
 
-class Todo extends Component {
+class TodoOld extends Component {
   state = {
     // pertama buat form aja dulu
     form: {
@@ -222,7 +222,7 @@ class Todo extends Component {
               onChange={this.handleChange}
               value={this.state.form.description}
 
-              className={`form-control ${this.state.errors.task && "is-invalid"}`}
+              className={`form-control ${this.state.errors.description && "is-invalid"}`}
               id="description" rows="3" name="description"
             >
             </textarea>
@@ -327,7 +327,7 @@ class Todo extends Component {
   }
 }
 
-export default Todo
+export default TodoOld
 
 /**
 import { IconRefresh } from '@tabler/icons-react'
