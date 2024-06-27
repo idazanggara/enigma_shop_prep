@@ -1,7 +1,13 @@
 import { Component } from "react"
 import { IconSettings2 } from "@tabler/icons-react"
+import PropTypes from 'prop-types'
+import { IconDoorExit } from "@tabler/icons-react"
 
 export default class Header extends Component {
+  handleLogout = () => {
+    if (!confirm("Apakah yakin ingin logout?")) return
+    this.props.handleAuthentication(false)
+  };
   render() {
     return (
       <div className="d-flex justify-content-end shadow-sm px-4 py-2">
@@ -34,8 +40,23 @@ export default class Header extends Component {
               Sunting Profil
             </a>
           </li>
+          <li>
+            <button
+              onClick={this.handleLogout}
+              className="dropdown-item"
+              href="#"
+            >
+              <i className="me-2">
+                <IconDoorExit size={16} />
+              </i>
+              Logout
+            </button>
+          </li>
         </ul>
       </div>
     )
   }
+}
+Header.propTypes = {
+  handleAuthentication: PropTypes.func,
 }

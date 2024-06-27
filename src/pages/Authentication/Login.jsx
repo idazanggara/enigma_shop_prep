@@ -1,8 +1,73 @@
 import login from "@/assets/images/login.svg"
 import { IconArrowLeft } from "@tabler/icons-react"
 import { Component } from "react"
+import PropTypes from 'prop-types'
+
 
 class Login extends Component {
+  state = {
+    form: {
+      username: "",
+      password: "",
+    },
+    errors: {
+      username: "",
+      password: "",
+    },
+    isValid: false,
+  };
+
+  handleChange = (e) => {
+    const { name, value } = e.target
+
+    let errors = { ...this.state.errors }
+
+    if (name === "username") {
+      errors.username = value.length === 0 ? "Username wajib di isi!" : ""
+    }
+
+    if (name === "password") {
+      errors.password = value.length === 0 ? "Password wajib di isi!" : ""
+    }
+
+    this.setState(
+      {
+        form: {
+          ...this.state.form,
+          [name]: value,
+        },
+        errors,
+      },
+      this.validateForm
+    )
+  };
+
+  validateForm = () => {
+    const { username, password } = this.state.form
+    const { errors } = this.state
+
+    const isValid =
+      username.trim() !== "" &&
+      password.trim() !== "" &&
+      Object.values(errors).every((error) => error === "")
+
+    this.setState({ isValid })
+  };
+
+  handleOnSubmit = (e) => {
+    e.preventDefault()
+    const { username, password } = this.state.form
+    console.log("🚀 ~ Login ~ username:", username, "password", password, "0--")
+
+    if (!this.state.isValid) return
+
+    if (username === "admin" && password === "password") {
+      console.log("🚀 ~ Login ~ username:", username, "password", password, "0--")
+      this.props.handleAuthentication(true)
+    } else {
+      // this.props.showToast("username atau password salah", "danger")
+    }
+  };
   render() {
     return (
       <>
@@ -21,7 +86,7 @@ class Login extends Component {
           style={{ minHeight: "80vh" }}
         >
           <div className="shadow-lg rounded-4" style={{ width: 500 }}>
-            <form className="p-4">
+            <form onSubmit={this.handleOnSubmit} className="p-4">
               <div className="row mt-4 mb-3">
                 <div className="col text-center">
                   <img
@@ -35,33 +100,52 @@ class Login extends Component {
               </div>
               <h2 className="text-center">Log In</h2>
               <div className="mb-3">
-                <label htmlFor="emailLogin">Email</label>
+                <label htmlFor="username">Username</label>
                 <input
-                  type="email"
-                  name="email"
-                  id="emailLogin"
-                  className="form-control rounded-0 border-0 border-bottom"
+                  onChange={this.handleChange}
+                  type="text"
+                  name="username"
+                  id="username"
+                  className={`form-control rounded-0 border-0 border-bottom ${this.state.errors.username && "is-invalid"}`}
                 />
+                <div className="invalid-feedback">
+                  {this.state.errors.username}
+                </div>
               </div>
               <div className="mb-3">
-                <label htmlFor="passwordLogin">Password</label>
+                <label htmlFor="password">Password</label>
                 <input
+                  onChange={this.handleChange}
                   type="password"
                   name="password"
-                  id="passwordLogin"
-                  className="form-control rounded-0 border-0 border-bottom"
+                  id="password"
+                  className={`form-control rounded-0 border-0 border-bottom ${this.state.errors.password && "is-invalid"}`}
                 />
+                <div className="invalid-feedback">
+                  {this.state.errors.password}
+                </div>
               </div>
               <div className="mb-3 text-end">
                 <a href="#">Lupa Password?</a>
               </div>
-              <button className="btn btn-primary mt-4 w-100">Login</button>
+              <button
+                disabled={!this.state.isValid}
+                type="submit"
+                className="btn btn-primary mt-4 w-100"
+              >
+                Login
+              </button>
             </form>
           </div>
         </div>
       </>
     )
   }
+}
+
+Login.propTypes = {
+  handleAuthentication: PropTypes.func,
+  showToast: PropTypes.func,
 }
 
 export default Login

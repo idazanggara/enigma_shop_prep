@@ -21,16 +21,39 @@ class App extends React.Component {
   navigateTo = (page) => {
     this.setState({ page })
   }
+
+  handleAuthentication = (status) => {
+    this.setState({
+      isAuthenticated: status,
+    })
+
+    // if (status) {
+    //   this.props.showToast("Sukses login.");
+    // } else {
+    //   this.props.showToast("Sukses logout.");
+    // }
+  };
   render() {
+    const { isAuthenticated, page } = this.state
+    // username = ? password = ?. satu aja buat login
     return (
       <>
-        <div className="d-flex">
-          <Sidebar navigateTo={this.navigateTo} />
-          <main className="w-100 flex-grow-1">
-            <Header />
-            {this.state.page}
-          </main>
-        </div>
+        {
+          isAuthenticated ?
+            <div className="d-flex">
+              <Sidebar
+                navigateTo={this.navigateTo}
+                handleAuthentication={this.handleAuthentication}
+              />
+              <main className="w-100 flex-grow-1">
+                <Header handleAuthentication={this.handleAuthentication} />
+                {page}
+              </main>
+            </div>
+            :
+            <Login handleAuthentication={this.handleAuthentication} />
+        }
+
 
         {/* <button onClick={() => this.setState({ page: <Home /> })}>Show Home</button>
         <button onClick={() => this.setState({ page: <Lifecycle /> })}>Show Lifecycle</button>
