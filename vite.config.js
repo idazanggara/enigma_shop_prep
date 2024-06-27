@@ -13,6 +13,7 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, './src/pages'),
       '@shared': path.resolve(__dirname, './src/shared'),
       '@images': path.resolve(__dirname, './src/assets/images'),
+      '@animation': path.resolve(__dirname, './src/assets/animations'),
     }
   }
 })

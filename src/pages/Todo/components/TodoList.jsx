@@ -34,6 +34,24 @@ class TodoList extends Component {
               </tr>
             </thead>
             <tbody className="text-center align-middle">
+              {/* kalau adad yg tanya skeleton */}
+              {/* <tr className="placeholder-glow">
+                <td>
+                  <span className="placeholder col-6 rounded-1"></span>
+                </td>
+                <td>
+                  <span className="placeholder col-6 rounded-1"></span>
+                </td>
+                <td>
+                  <span className="placeholder col-6 rounded-1"></span>
+                </td>
+                <td>
+                  <span className="placeholder col-6 rounded-1"></span>
+                </td>
+                <td>
+                  <span className="placeholder col-6 rounded-1"></span>
+                </td>
+              </tr> */}
               {
                 todos.map((todo, index) => {
                   return (

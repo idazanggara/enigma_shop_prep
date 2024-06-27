@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
+import LoadingAnimation from '../../shared/components/Animations/LoadingAnimation'
 
 const obj = {
   id: 1,
@@ -24,7 +25,8 @@ class Todo extends Component {
       task: "",
       description: "",
     },
-    message: ""
+    message: "",
+    isLoading: true
   };
   handleChangeTask = (event) => {
     this.setState({
@@ -54,30 +56,36 @@ class Todo extends Component {
 
     const todos = this.state.todos
 
-    // console.log(this.state.form, "check data formnya") // kalau buat data baru ada idnya enggak? kalau edit ada idnya enggak?
-    // kalau ada bisa kita validasi kan ya
-    if (this.state.form.id) {
-      // TODO: Update
-      const index = todos.findIndex((todo) => todo.id === this.state.form.id) // cari index yg idnya sesuai
-      const todo = {
-        ...this.state.form
+    // simulasi buat loading
+    // kita balikin jadi true si isLoadingnya agar muncul kembali
+    this.setState({ isLoading: true })
+    setTimeout(() => {
+      // console.log(this.state.form, "check data formnya") // kalau buat data baru ada idnya enggak? kalau edit ada idnya enggak?
+      // kalau ada bisa kita validasi kan ya
+      if (this.state.form.id) {
+        // TODO: Update
+        const index = todos.findIndex((todo) => todo.id === this.state.form.id) // cari index yg idnya sesuai
+        const todo = {
+          ...this.state.form
+        }
+        todos.splice(index, 1, todo)
+        this.setState({ todos: todos, message: "Berhasil edit Todo!" })
+      } else {
+        // TODO: Create
+        const todo = {
+          ...this.state.form,
+          id: new Date().getMilliseconds().toString()
+        }
+        todos.push(todo)
+        this.setState({
+          todos: todos,
+          message: "Berhasil tambah Todo!"
+        })
       }
-      todos.splice(index, 1, todo)
-      this.setState({ todos: todos, message: "Berhasil edit Todo!" })
-    } else {
-      // TODO: Create
-      const todo = {
-        ...this.state.form,
-        id: new Date().getMilliseconds().toString()
-      }
-      todos.push(todo)
-      this.setState({
-        todos: todos,
-        message: "Berhasil tambah Todo!"
-      })
-    }
-
-    this.clearForm()
+      // kalau sudah dapat datanya kita ubah jadi false biar hilang loadingnya
+      this.setState({ isLoading: false })
+      this.clearForm()
+    }, 2000)
   }
   handleChangeDescription = (event) => {
     this.setState({
@@ -113,15 +121,20 @@ class Todo extends Component {
   // ini untuk delete
   handleDelete = (id) => {
     if (!confirm(`Apakah yakin ingin menghapus todo ini ${id}?`)) return
-    const todos = this.state.todos.filter((todo) => todo.id !== id)
-    this.setState({ todos: todos })
-    // this.setState({isLoading : true})
+    // const todos = this.state.todos.filter((todo) => todo.id !== id)
+    // this.setState({ todos: todos })
+
+    // simulasi buat loading
+    // kita balikin jadi true si isLoadingnya agar muncul kembali
+    this.setState({ isLoading: true })
     // this.props.handleShowLoading()
-    // setTimeout(() => {
-    //   const todos = this.state.todos.filter((todo) => todo.id !== id)
-    //   this.setState({ todos: todos })
-    //   // this.props.handleHide()
-    // }, 2000)
+    setTimeout(() => {
+      const todos = this.state.todos.filter((todo) => todo.id !== id)
+      this.setState({ todos: todos })
+      // kalau sudah dapat datanya kita ubah jadi false biar hilang loadingnya
+      this.setState({ isLoading: false })
+      // this.props.handleHide()
+    }, 2000)
   };
   clearForm = () => {
     this.setState({
@@ -160,7 +173,8 @@ class Todo extends Component {
             description: "Makan Lele",
             status: true,
           },
-        ]
+        ],
+        isLoading: false,
       })
     }, 3000)
   }
@@ -199,11 +213,26 @@ class Todo extends Component {
         />
 
         {/* List */}
-        <TodoList
-          handleSelectedTodo={this.handleSelectedTodo}
-          handleDelete={this.handleDelete}
-          todos={this.state.todos}
-        />
+        {
+          this.state.isLoading && <LoadingAnimation />
+          ||
+          <TodoList
+            handleSelectedTodo={this.handleSelectedTodo}
+            handleDelete={this.handleDelete}
+            todos={this.state.todos}
+          />
+        }
+
+        {
+          this.state.isLoading ?
+            <LoadingAnimation />
+            :
+            <TodoList
+              handleSelectedTodo={this.handleSelectedTodo}
+              handleDelete={this.handleDelete}
+              todos={this.state.todos}
+            />
+        }
 
       </div>
     )
