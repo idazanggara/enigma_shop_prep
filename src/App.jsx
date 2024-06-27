@@ -13,7 +13,9 @@ import Todo from './pages/Todo/Todo'
 
 class App extends React.Component {
   state = {
-    page: <Todo test="Hello World" />,
+    // page: <Todo test="Hello World" />,
+    page: <Dashboard />,
+    isAuthenticated: false,
   }
 
   navigateTo = (page) => {
