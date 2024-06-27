@@ -13,7 +13,7 @@ import Todo from './pages/Todo/Todo'
 
 class App extends React.Component {
   state = {
-    page: <Todo />,
+    page: <Todo test="Hello World" />,
   }
 
   navigateTo = (page) => {

@@ -2,9 +2,6 @@ import { Component } from 'react'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
 import LoadingAnimation from '../../shared/components/Animations/LoadingAnimation'
-import withLoading from '../../shared/hoc/withLoading'
-import PropTypes from 'prop-types'
-
 
 const obj = {
   id: 1,
@@ -15,7 +12,7 @@ const obj = {
 console.log(obj["id"])
 console.log(obj["description data"])
 
-class Todo extends Component {
+class TodoBeforeHOC extends Component {
   state = {
     form: {
       id: "",
@@ -29,7 +26,7 @@ class Todo extends Component {
       description: "",
     },
     message: "",
-    // isLoading: true // enggak butuh lagi kalau sudah HOC
+    isLoading: true
   };
   handleChangeTask = (event) => {
     this.setState({
@@ -61,8 +58,7 @@ class Todo extends Component {
 
     // simulasi buat loading
     // kita balikin jadi true si isLoadingnya agar muncul kembali
-    // this.setState({ isLoading: true })
-    this.props.showLoading()
+    this.setState({ isLoading: true })
     setTimeout(() => {
       // console.log(this.state.form, "check data formnya") // kalau buat data baru ada idnya enggak? kalau edit ada idnya enggak?
       // kalau ada bisa kita validasi kan ya
@@ -87,8 +83,7 @@ class Todo extends Component {
         })
       }
       // kalau sudah dapat datanya kita ubah jadi false biar hilang loadingnya
-      // this.setState({ isLoading: false })
-      this.props.hideLoading()
+      this.setState({ isLoading: false })
       this.clearForm()
     }, 2000)
   }
@@ -131,14 +126,14 @@ class Todo extends Component {
 
     // simulasi buat loading
     // kita balikin jadi true si isLoadingnya agar muncul kembali
-    // this.setState({ isLoading: true })
-    this.props.showLoading()
+    this.setState({ isLoading: true })
+    // this.props.handleShowLoading()
     setTimeout(() => {
       const todos = this.state.todos.filter((todo) => todo.id !== id)
       this.setState({ todos: todos })
       // kalau sudah dapat datanya kita ubah jadi false biar hilang loadingnya
-      // this.setState({ isLoading: false })
-      this.props.hideLoading()
+      this.setState({ isLoading: false })
+      // this.props.handleHide()
     }, 2000)
   };
   clearForm = () => {
@@ -179,9 +174,8 @@ class Todo extends Component {
             status: true,
           },
         ],
-        // isLoading: false,
+        isLoading: false,
       })
-      this.props.hideLoading()
     }, 3000)
   }
 
@@ -220,7 +214,7 @@ class Todo extends Component {
 
         {/* List */}
         {
-          this.props.isLoading && <LoadingAnimation />
+          this.state.isLoading && <LoadingAnimation />
           ||
           <TodoList
             handleSelectedTodo={this.handleSelectedTodo}
@@ -230,7 +224,7 @@ class Todo extends Component {
         }
 
         {
-          this.props.isLoading ?
+          this.state.isLoading ?
             <LoadingAnimation />
             :
             <TodoList
@@ -239,24 +233,10 @@ class Todo extends Component {
               todos={this.state.todos}
             />
         }
-        {/* {this.props.test} */}
+
       </div>
     )
   }
 }
 
-Todo.propTypes = {
-  isLoading: PropTypes.bool,
-  showLoading: PropTypes.func,
-  hideLoading: PropTypes.func,
-  // showToast: PropTypes.func,
-}
-
-
-const TodoComponent = withLoading(Todo)
-// GrandParent -> Parent -> Child
-// const TodoComponent = withAlert(withLoading(Todo))
-
-// export default Todo
-// export default withLoading(Todo) // ini ada warning
-export default TodoComponent
+export default TodoBeforeHOC
